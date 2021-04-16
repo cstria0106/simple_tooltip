@@ -9,8 +9,12 @@ In the `dependencies:` section of your `pubspec.yaml`, add the following line:
 
 ```yaml
 dependencies:
-  simple_tooltip: <latest version>
+  simple_tooltip:
+    git:
+      url: git://github.com/cstria0106/simple_tooltip
 ```
+
+<img src="https://raw.githubusercontent.com/cstria0106/simple_tooltip/master/example/sample2.png" width="300" alt="Basic">
 
 # Usage
 
