@@ -3,6 +3,7 @@ part of tooltip;
 class _BalloonTransition extends StatefulWidget {
   final Widget child;
   final Duration duration;
+  final Curve curve;
   final TooltipDirection tooltipDirection;
   final bool hide;
   final Function(AnimationStatus) animationEnd;
@@ -12,6 +13,7 @@ class _BalloonTransition extends StatefulWidget {
     @required this.child,
     @required this.duration,
     @required this.tooltipDirection,
+    this.curve = Curves.easeOut,
     this.hide = false,
     this.animationEnd,
   }) : super(key: key);
@@ -33,7 +35,7 @@ class _BalloonTransitionState extends State<_BalloonTransition>
       duration: widget.duration,
     );
     final CurvedAnimation curvedAnimation = CurvedAnimation(
-      curve: Curves.bounceOut,
+      curve: widget.curve,
       parent: _animationController,
     );
     _rotationAnimation = Tween<double>(begin: pi * .5, end: 0).animate(

@@ -38,6 +38,10 @@ class SimpleTooltip extends StatefulWidget {
   /// defaults to [460] milliseconds
   final Duration animationDuration;
 
+  /// sets the curve of animation
+  /// defaults to: Curves.easeOut
+  final Curve animationCurve;
+
   /// [top], [right], [bottom], [left] position the Tooltip absolute relative to the whole screen
   double top, right, bottom, left;
 
@@ -117,6 +121,7 @@ class SimpleTooltip extends StatefulWidget {
     this.borderWidth = 2.0,
     this.borderColor = const Color(0xFF50FFFF),
     this.animationDuration = const Duration(milliseconds: 460),
+    this.animationCurve = Curves.easeOut,
     this.backgroundColor = const Color(0xFFFFFFFF),
     this.customShadows = const [
       const BoxShadow(color: const Color(0x45222222), blurRadius: 8, spreadRadius: 2),
@@ -306,9 +311,10 @@ class SimpleTooltipState extends State<SimpleTooltip> with RouteAware {
           minHeight: widget.minHeight,
           maxWidth: widget.maxWidth,
           minWidth: widget.minWidth,
-          child: _BalloonTransition(
+          builder:(_, tipAdjustment) => _BalloonTransition(
             key: _transitionKey,
             duration: widget.animationDuration,
+            curve: widget.animationCurve,
             tooltipDirection: direction,
             hide: buildHidding,
             animationEnd: (status) {
@@ -328,6 +334,7 @@ class SimpleTooltipState extends State<SimpleTooltip> with RouteAware {
               tooltipDirection: direction,
               backgroundColor: widget.backgroundColor,
               shadows: widget.customShadows,
+              tipAdjustment: tipAdjustment,
               onTap: () {
                 if (widget.hideOnTooltipTap) {
                   _removeTooltip();
